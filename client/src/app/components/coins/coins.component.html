@@ -11,8 +11,7 @@
           <div class="d-flex flex-row" [formGroup]="myGroup">
               <input
                 type="number"
-                min="1"
-                onkeypress="return event.charCode != 48"
+                oninput="this.value = this.value.replace(/[^1-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                 class="form-control"
                 matInput
                 name="value"
