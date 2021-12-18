@@ -34,7 +34,8 @@ export class CoinsComponent implements OnInit, OnDestroy {
     });
 
 
-  showCoins(quantity: number, isDesc: boolean) {
+  showCoins(isDesc: boolean) {
+    console.log("quantity = ", this.quantity)
     this.spinner.show();
     this.coinService.getAll()
       .pipe(takeUntil(this.unsubscriber))
@@ -48,13 +49,13 @@ export class CoinsComponent implements OnInit, OnDestroy {
           parseFloat(a.metrics.market_data.price_usd.toString()));
         }
 
-        const size: number = (quantity > 0 && quantity < data.length) ? quantity : data.length;
-
-        const items = data.slice(0, size);
+        const items = data.slice(0, this.quantity);
 
         this.coins = items;
-        let msq_quantity: string = quantity == 1000 ? "all fetched" : quantity.toString();
-        this.toastr.success(`"Information about ${msq_quantity} coins is loading successfully!"`);
+        if(this.quantity > 0) {
+          let msq_quantity: string = this.quantity > 0 ? this.quantity.toString() : "all fetched" ;
+          this.toastr.success(`"Information about ${msq_quantity} coins is loading successfully!"`);
+        }
       }, (error: any) => {
         this.toastr.error('Information about coins is not loading!');
         console.log(error);
@@ -64,7 +65,7 @@ export class CoinsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log(this.quantity);
-    this.showCoins(this.quantity, false);
+    this.showCoins(false);
   }
 
   modelChanged(value: number){

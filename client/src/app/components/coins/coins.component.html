@@ -38,7 +38,7 @@
 
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="this.quantity > 0">
       <tr *ngFor="let coin of coins; let i = index" [attr.data-index]="i">
         <th style="text-align:center">{{i+1}}.</th>
         <td>{{coin.slug}}</td>
@@ -48,6 +48,13 @@
         <td></td>
       </tr>
     </tbody>
+    <tbody *ngIf="this.quantity == 0" >
+       <tr>
+        <th class="no">Select more then 0, please !!!</th>
+      </tr>
+    </tbody>
   </table>
+
+
 </div>
 
