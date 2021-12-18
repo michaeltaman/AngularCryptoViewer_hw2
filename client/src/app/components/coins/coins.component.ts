@@ -53,7 +53,7 @@ export class CoinsComponent implements OnInit, OnDestroy {
 
         this.coins = items;
         if(this.quantity > 0) {
-          let msq_quantity: string = this.quantity > 0 ? this.quantity.toString() : "all fetched" ;
+          let msq_quantity: string = this.quantity >= data.length ? "all fetched" : this.quantity.toString();
           this.toastr.success(`"Information about ${msq_quantity} coins is loading successfully!"`);
         }
       }, (error: any) => {
